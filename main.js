@@ -1,4 +1,4 @@
-d3.csv("https://raw.githubusercontent.com/qwuzer/LATIA112-1/main/project/qwuzer.github.io/states_all.csv").then(
+d3.csv("https://raw.githubusercontent.com/qwuzer/qwuzer.github.io/main/states_all.csv").then(
     res => {
         console.log(res);
         drawLineChart(res);
