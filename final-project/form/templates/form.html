@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Survey Form</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link href="https://fonts.googleapis.com/css?family=Quicksand|Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+<body>
+    <header>
+        <div id="title">
+            <h1>歷屆學測落點分析</h1>
+        </div>
+    </header>
+
+    <form id="survey-form" method="post" action="/submit" enctype="multipart/form-data">
+
+        <div id="description">Let us know your score so we can give you an anaylsis!</div><br>
+
+        <fieldset class="fieldset">
+
+            <!-- <div class="sub-group">
+                <label class="left" id="name-label" for="name">*Name:</label>
+                <input type="text" name="customer-name" class="right input-field" id="name" placeholder="Enter your name" required>
+            </div>
+
+            <div class="sub-group">
+                <label class="left" id="email-label" for="email">*Email:</label>
+                <input type="email" name="Email-address" class="right input-field" placeholder="Enter your email" id="email" required>
+            </div>
+
+            <div class="sub-group">
+                <label class="left" id="number-label" for="number">*Age:</label>
+                <input type="number" name="Age" placeholder="Age" min="1" max="100" class="right input-field" id="number">
+            </div>
+
+            <div class="sub-group">
+                <label class="left" id="handphone-label" for="handphone">*Handphone:</label>
+                <input type="text" placeholder="Phone Number" class="right input-field" id="handphone">
+            </div> -->
+
+        </fieldset>
+
+        <fieldset class="fieldset">
+            <!-- Add the six attributes here -->
+            <div class="sub-group">
+                <label class="left">*Chinese Score:</label>
+                <input type="number" name="chinese" class="right input-field" placeholder="Enter Chinese score" required min="0" max="15">
+            </div>
+
+            <div class="sub-group">
+                <label class="left">*English Score:</label>
+                <input type="number" name="english" class="right input-field" placeholder="Enter English score" required min="0" max="15">
+            </div>
+
+            <div class="sub-group">
+                <label class="left">*Math A Score:</label>
+                <input type="number" name="matha" class="right input-field" placeholder="Enter Math A score" required min="0" max="15">
+            </div>
+
+            <div class="sub-group">
+                <label class="left">*Math B Score:</label>
+                <input type="number" name="mathb" class="right input-field" placeholder="Enter Math B score" required min="0" max="15">
+            </div>
+
+            <div class="sub-group">
+                <label class="left">*Social Score:</label>
+                <input type="number" name="social" class="right input-field" placeholder="Enter Social score" required min="0" max="15">
+            </div>
+
+            <div class="sub-group">
+                <label class="left">*Scienc Score:</label>
+                <input type="number" name="science" class="right input-field" placeholder="Enter Science score" required min="0" max="15">
+            </div>
+        </fieldset>
+
+        <fieldset class="fieldset">
+            <div class="sub-group">
+                <label class="left" id="left-radio">Which year do you want to analyze?</label>
+                <!-- Dropdown for year selection -->
+                <select name="year" id="year">
+                    <!-- Options for the year range 100-112 -->
+                    <option value="108">108</option>
+                    <option value="109">109</option>
+                    <option value="110">110</option>
+                    <option value="111">111</option>
+                    <option value="112">112</option>
+                </select>
+            </div>
+        </fieldset>
+
+
+        <fieldset class="fieldset">
+            <!-- <h2>Any comments or suggestions?</h2> -->
+            <div class="commentbox">
+                <!-- <textarea rows="4" name="comments" placeholder="Enter your comment here..."></textarea> -->
+                <br></br>
+                <button id="submit" type="submit">Submit</button>
+                <p>{{ confirm }}</p>
+            </div>
+            
+        </fieldset>
+
+    </form>
+</body>
+
+</html>
