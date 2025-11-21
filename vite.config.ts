@@ -18,5 +18,9 @@ export default defineConfig(({ mode }) => ({
     },
   },
   assetsInclude: ["**/*.md"],
-  base: '/'
+  base: "/",
+  build: {
+    outDir: "dist",
+    assetsDir: "assets",
+  },
 }));
