@@ -1,73 +1,109 @@
-# Welcome to your Lovable project
+# Qwuzer's Homepage
 
-## Project info
+A modern, interactive digital desktop portfolio built with React and TypeScript. This project features a macOS-inspired interface with window management, a dock, and various interactive applications.
 
-**URL**: https://lovable.dev/projects/7c2d1bbf-6650-4de3-ae35-bcffbfda1caf
+## 🌐 Live Site
 
-## How can I edit this code?
+Visit the live site: [qwuzer.github.io](https://qwuzer.github.io)
 
-There are several ways of editing your application.
+## 🚀 Features
 
-**Use Lovable**
+- **macOS-inspired UI**: Beautiful desktop interface with window management
+- **Interactive Applications**: Finder, About, Projects, Photos, Music, Mail, and more
+- **Spotlight Search**: Quick app launcher with keyboard shortcuts
+- **Responsive Design**: Works seamlessly across different screen sizes
+- **Modern Tech Stack**: Built with the latest web technologies
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/7c2d1bbf-6650-4de3-ae35-bcffbfda1caf) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
-
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
+## 🛠️ Technologies
 
 This project is built with:
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+- **Vite** - Next-generation frontend tooling
+- **React 18** - UI library
+- **TypeScript** - Type-safe JavaScript
+- **Tailwind CSS** - Utility-first CSS framework
+- **shadcn/ui** - High-quality React components
+- **Radix UI** - Accessible component primitives
+- **React Router** - Client-side routing
+- **TanStack Query** - Data fetching and caching
+- **Lucide React** - Beautiful icon library
 
-## How can I deploy this project?
+## 📦 Getting Started
 
-Simply open [Lovable](https://lovable.dev/projects/7c2d1bbf-6650-4de3-ae35-bcffbfda1caf) and click on Share -> Publish.
+### Prerequisites
 
-## Can I connect a custom domain to my Lovable project?
+- Node.js 18+ and npm (or use [nvm](https://github.com/nvm-sh/nvm#installing-and-updating))
 
-Yes, you can!
+### Installation
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+1. Clone the repository:
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+```bash
+git clone https://github.com/qwuzer/qwuzer.github.io.git
+cd qwuzer.github.io
+```
+
+2. Install dependencies:
+
+```bash
+npm install
+```
+
+3. Start the development server:
+
+```bash
+npm run dev
+```
+
+4. Open your browser and navigate to `http://localhost:8080`
+
+## 📜 Available Scripts
+
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run build:dev` - Build in development mode
+- `npm run preview` - Preview production build locally
+- `npm run lint` - Run ESLint
+
+## 🏗️ Project Structure
+
+```
+qwuzer.github.io/
+├── public/          # Static assets and favicons
+├── src/
+│   ├── components/ # React components
+│   │   ├── ui/     # shadcn/ui components
+│   │   └── windows/# Application window components
+│   ├── pages/      # Page components
+│   ├── hooks/      # Custom React hooks
+│   ├── lib/        # Utility functions
+│   └── assets/     # Images and other assets
+├── .github/
+│   └── workflows/  # GitHub Actions workflows
+└── dist/           # Production build output
+```
+
+## 🚢 Deployment
+
+This project is automatically deployed to GitHub Pages via GitHub Actions on every push to the `main` branch.
+
+The deployment workflow:
+
+1. Builds the project using Vite
+2. Uploads the build artifacts
+3. Deploys to GitHub Pages
+
+## 📝 License
+
+This project is open source and available under the MIT License.
+
+## 👤 Author
+
+**Qwuzer**
+
+- GitHub: [@qwuzer](https://github.com/qwuzer)
+- Website: [qwuzer.github.io](https://qwuzer.github.io)
+
+---
+
+Made with ❤️ using React and TypeScript
