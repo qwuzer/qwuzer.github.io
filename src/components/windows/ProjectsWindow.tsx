@@ -3,15 +3,15 @@ import { useEffect, useRef } from "react";
 import { Button } from "../ui/button";
 
 export const projectsData = [
-  {
-    title: "E-Commerce Platform",
-    description:
-      "Full-stack e-commerce solution with React, Node.js, and Stripe integration. Features include product management, cart functionality, and secure checkout.",
-    tech: ["React", "Node.js", "MongoDB", "Stripe"],
-    image: "bg-gradient-to-br from-blue-500 to-purple-500",
-    githubUrl: "https://github.com/yourusername/ecommerce-platform",
-    demoUrl: "https://ecommerce-demo.example.com",
-  },
+  // {
+  //   title: "E-Commerce Platform",
+  //   description:
+  //     "Full-stack e-commerce solution with React, Node.js, and Stripe integration. Features include product management, cart functionality, and secure checkout.",
+  //   tech: ["React", "Node.js", "MongoDB", "Stripe"],
+  //   image: "bg-gradient-to-br from-blue-500 to-purple-500",
+  //   githubUrl: "https://github.com/yourusername/ecommerce-platform",
+  //   demoUrl: "https://ecommerce-demo.example.com",
+  // },
   {
     title: "OOAD: Study Helper",
     description:
