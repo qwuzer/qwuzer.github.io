@@ -34,7 +34,12 @@ export const AboutWindow = () => {
             <Mail className="w-5 h-5 text-primary" />
             <div>
               <div className="text-xs text-muted-foreground">Email</div>
-              <div className="text-sm font-medium">thsg314@gmail.com</div>
+              <a 
+                href="mailto:thsg314@gmail.com" 
+                className="text-sm font-medium hover:text-primary hover:underline transition-colors"
+              >
+                thsg314@gmail.com
+              </a>
             </div>
           </div>
           

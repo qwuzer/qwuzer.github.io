@@ -1,6 +1,8 @@
 import { ExternalLink, Github } from "lucide-react";
 import { useEffect, useRef } from "react";
 import { Button } from "../ui/button";
+import ooadCover from "../../assets/OOAD_cover.png";
+import pokeStatsCover from "../../assets/PokeStats_cover.png";
 
 export const projectsData = [
   // {
@@ -17,7 +19,7 @@ export const projectsData = [
     description:
       "Object-Oriented Analysis and Design project that helps students study by providing a platform for them to upload their study materials and create notes. \n I have implemented the note creation/editing/deletion functionality, as well as the ability to upload study materials and sort notes.",
     tech: ["Typescript", "React", "AdonisJS", "PostgreSQL"],
-    image: "bg-gradient-to-br from-orange-500 to-pink-500",
+    image: ooadCover,
     githubUrl: "https://github.com/tanerijun/ntnu-ooad-final-project",
     demoUrl: "https://ntnu-ooad-final-project.vercel.app/",
   },
@@ -26,7 +28,7 @@ export const projectsData = [
     description:
       "Data visualization dashboard with interactive charts, real-time metrics, and customizable features.",
     tech: ["JavaScript", "TypeScript", "D3.js", "TailwindCSS"],
-    image: "bg-gradient-to-br from-green-500 to-teal-500",
+    image: pokeStatsCover,
     githubUrl:
       "https://github.com/qwuzer/Data-visualization-PokeStats-Explorer",
     demoUrl: "https://pokestats-demo.example.com",
@@ -66,9 +68,13 @@ export const ProjectsWindow = ({ highlightedProject }: ProjectsWindowProps) => {
                 isHighlighted ? "ring-2 ring-primary shadow-lg" : ""
               }`}
             >
-              <div
-                className={`w-48 h-32 rounded-lg ${project.image} flex-shrink-0`}
-              />
+              <div className="w-48 h-32 rounded-lg overflow-hidden flex-shrink-0">
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  className="w-full h-full object-cover"
+                />
+              </div>
 
               <div className="flex-1">
                 <h3 className="text-xl font-semibold mb-2">{project.title}</h3>

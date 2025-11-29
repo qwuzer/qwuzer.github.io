@@ -7,7 +7,17 @@ import { toast } from "sonner";
 export const MailWindow = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success("Message sent! I'll get back to you soon.");
+    const form = e.target as HTMLFormElement;
+    const name = (form.elements.namedItem("name") as HTMLInputElement).value;
+    const subject = (form.elements.namedItem("subject") as HTMLInputElement).value;
+    const message = (form.elements.namedItem("message") as HTMLTextAreaElement).value;
+
+    const mailtoLink = `mailto:thsg314@gmail.com?subject=${encodeURIComponent(
+      subject
+    )}&body=${encodeURIComponent(`Name: ${name}\n\n${message}`)}`;
+
+    window.location.href = mailtoLink;
+    toast.success("Opening your email client...");
   };
 
   return (
