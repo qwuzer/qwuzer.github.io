@@ -1,5 +1,6 @@
-import { X, Minus, Square } from "lucide-react";
+import { X, Minus, Square, ArrowLeft } from "lucide-react";
 import { useState, useRef, useEffect, ReactNode } from "react";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface WindowProps {
   title: string;
@@ -30,6 +31,7 @@ export const Window = ({
   isMinimized = false,
   isHidden = false,
 }: WindowProps) => {
+  const isMobile = useIsMobile();
   const [position, setPosition] = useState(initialPosition);
   const [isDragging, setIsDragging] = useState(false);
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
@@ -40,6 +42,17 @@ export const Window = ({
   const windowRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if (isMobile) {
+      // On mobile, always make window fullscreen
+      setPosition({ x: 0, y: 0 });
+      setSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+      setIsMaximized(true);
+      return;
+    }
+
     const handleMouseMove = (e: MouseEvent) => {
       if (isDragging) {
         setPosition({
@@ -91,9 +104,10 @@ export const Window = ({
       document.removeEventListener("mousemove", handleMouseMove);
       document.removeEventListener("mouseup", handleMouseUp);
     };
-  }, [isDragging, isResizing, dragOffset, resizeDirection, size, position]);
+  }, [isMobile, isDragging, isResizing, dragOffset, resizeDirection, size, position]);
 
   const handleMouseDown = (e: React.MouseEvent) => {
+    if (isMobile) return; // Disable dragging on mobile
     onFocus();
     if (windowRef.current) {
       const rect = windowRef.current.getBoundingClientRect();
@@ -106,6 +120,7 @@ export const Window = ({
   };
 
   const handleMaximize = () => {
+    if (isMobile) return; // Disable maximize on mobile (always fullscreen)
     if (isMaximized) {
       setSize({ width, height });
       setPosition(initialPosition);
@@ -121,6 +136,7 @@ export const Window = ({
   };
 
   const handleResizeStart = (e: React.MouseEvent, direction: string) => {
+    if (isMobile) return; // Disable resizing on mobile
     e.preventDefault();
     e.stopPropagation();
     onFocus();
@@ -133,30 +149,46 @@ export const Window = ({
   return (
     <div
       ref={windowRef}
-      className="fixed window-style rounded-xl overflow-hidden animate-scale-in"
+      className={`fixed window-style overflow-hidden animate-scale-in ${
+        isMobile ? "rounded-none" : "rounded-xl"
+      }`}
       style={{
-        left: position.x,
-        top: position.y,
-        width: `${size.width}px`,
-        height: `${size.height}px`,
-        maxWidth: "calc(100vw - 40px)",
-        maxHeight: "calc(100vh - 100px)",
+        left: isMobile ? 0 : position.x,
+        top: isMobile ? 48 : position.y,
+        width: isMobile ? "100vw" : `${size.width}px`,
+        height: isMobile ? `calc(100vh - 48px - 64px)` : `${size.height}px`,
+        maxWidth: isMobile ? "100vw" : "calc(100vw - 40px)",
+        maxHeight: isMobile ? "100vh" : "calc(100vh - 100px)",
         zIndex,
-        transform: isHidden
+        transform: isHidden && !isMobile
           ? "translateY(40px) scale(0.97)"
           : "translateY(0) scale(1)",
-        opacity: isHidden ? 0 : 1,
-        pointerEvents: isHidden ? "none" : "auto",
+        opacity: isHidden && !isMobile ? 0 : 1,
+        pointerEvents: isHidden && !isMobile ? "none" : "auto",
         transition: "transform 0.25s ease, opacity 0.25s ease",
       }}
       onClick={onFocus}
     >
       <div
-        className="h-12 bg-[hsl(var(--window-header))] border-b border-border flex items-center justify-between px-4 cursor-move"
+        className={`h-12 bg-[hsl(var(--window-header))] border-b border-border flex items-center justify-between px-4 ${
+          isMobile ? "" : "cursor-move"
+        }`}
         onMouseDown={handleMouseDown}
       >
-        <div className="flex items-center gap-2">
-          <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 flex-1">
+          {isMobile && (
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                onClose();
+              }}
+              className="mr-2 p-1 rounded-lg hover:bg-muted transition-colors"
+              title="Back"
+            >
+              <ArrowLeft className="w-5 h-5" />
+            </button>
+          )}
+          <div className={`flex items-center gap-2 ${isMobile ? "hidden" : ""}`}>
             <button
               onClick={(e) => {
                 e.stopPropagation();
@@ -202,43 +234,59 @@ export const Window = ({
             <span className="text-sm font-medium">{title}</span>
           </div>
         </div>
+        {isMobile && (
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              onClose();
+            }}
+            className="p-1 rounded-lg hover:bg-muted transition-colors"
+            title="Close"
+          >
+            <X className="w-5 h-5" />
+          </button>
+        )}
       </div>
 
-      <div className="h-[calc(100%-3rem)] overflow-auto">{children}</div>
+      <div className={`overflow-auto ${isMobile ? "h-[calc(100%-3rem)]" : "h-[calc(100%-3rem)]"}`}>{children}</div>
 
-      {/* Resize handles */}
-      <div
-        className="absolute top-0 left-0 w-1 h-full cursor-ew-resize"
-        onMouseDown={(e) => handleResizeStart(e, "w")}
-      />
-      <div
-        className="absolute top-0 right-0 w-1 h-full cursor-ew-resize"
-        onMouseDown={(e) => handleResizeStart(e, "e")}
-      />
-      <div
-        className="absolute top-0 left-0 w-full h-1 cursor-ns-resize"
-        onMouseDown={(e) => handleResizeStart(e, "n")}
-      />
-      <div
-        className="absolute bottom-0 left-0 w-full h-1 cursor-ns-resize"
-        onMouseDown={(e) => handleResizeStart(e, "s")}
-      />
-      <div
-        className="absolute top-0 left-0 w-3 h-3 cursor-nwse-resize"
-        onMouseDown={(e) => handleResizeStart(e, "nw")}
-      />
-      <div
-        className="absolute top-0 right-0 w-3 h-3 cursor-nesw-resize"
-        onMouseDown={(e) => handleResizeStart(e, "ne")}
-      />
-      <div
-        className="absolute bottom-0 left-0 w-3 h-3 cursor-nesw-resize"
-        onMouseDown={(e) => handleResizeStart(e, "sw")}
-      />
-      <div
-        className="absolute bottom-0 right-0 w-3 h-3 cursor-nwse-resize"
-        onMouseDown={(e) => handleResizeStart(e, "se")}
-      />
+      {/* Resize handles - only show on desktop */}
+      {!isMobile && (
+        <>
+          <div
+            className="absolute top-0 left-0 w-1 h-full cursor-ew-resize"
+            onMouseDown={(e) => handleResizeStart(e, "w")}
+          />
+          <div
+            className="absolute top-0 right-0 w-1 h-full cursor-ew-resize"
+            onMouseDown={(e) => handleResizeStart(e, "e")}
+          />
+          <div
+            className="absolute top-0 left-0 w-full h-1 cursor-ns-resize"
+            onMouseDown={(e) => handleResizeStart(e, "n")}
+          />
+          <div
+            className="absolute bottom-0 left-0 w-full h-1 cursor-ns-resize"
+            onMouseDown={(e) => handleResizeStart(e, "s")}
+          />
+          <div
+            className="absolute top-0 left-0 w-3 h-3 cursor-nwse-resize"
+            onMouseDown={(e) => handleResizeStart(e, "nw")}
+          />
+          <div
+            className="absolute top-0 right-0 w-3 h-3 cursor-nesw-resize"
+            onMouseDown={(e) => handleResizeStart(e, "ne")}
+          />
+          <div
+            className="absolute bottom-0 left-0 w-3 h-3 cursor-nesw-resize"
+            onMouseDown={(e) => handleResizeStart(e, "sw")}
+          />
+          <div
+            className="absolute bottom-0 right-0 w-3 h-3 cursor-nwse-resize"
+            onMouseDown={(e) => handleResizeStart(e, "se")}
+          />
+        </>
+      )}
     </div>
   );
 };

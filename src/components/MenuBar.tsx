@@ -1,8 +1,10 @@
 import { Wifi, Battery, Search, Volume2 } from "lucide-react";
 import { useState, useEffect } from "react";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 export const MenuBar = () => {
   const [currentTime, setCurrentTime] = useState(new Date());
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -23,6 +25,17 @@ export const MenuBar = () => {
     month: 'short', 
     day: 'numeric' 
   });
+
+  if (isMobile) {
+    return (
+      <div className="fixed top-0 left-0 right-0 h-12 glass-effect border-b border-border/50 flex items-center justify-between px-4 text-sm z-50 safe-area-top">
+        <span className="text-foreground font-semibold text-base">William's Portfolio</span>
+        <div className="flex items-center gap-2">
+          <span className="text-xs">{timeString}</span>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="fixed top-0 left-0 right-0 h-7 glass-effect border-b border-border/50 flex items-center justify-between px-4 text-sm z-50">

@@ -23,6 +23,7 @@ import {
   HelpCircle,
 } from "lucide-react";
 import wallpaper from "@/assets/macos-wallpaper.jpg";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 type AppId =
   | "finder"
@@ -40,6 +41,7 @@ interface AppState {
 }
 
 const Index = () => {
+  const isMobile = useIsMobile();
   const [openApps, setOpenApps] = useState<AppState[]>([]);
   const [maxZIndex, setMaxZIndex] = useState(10);
   const [spotlightOpen, setSpotlightOpen] = useState(false);
@@ -249,13 +251,15 @@ const Index = () => {
         onClose={() => setCheatSheetOpen(false)}
       />
 
-      <button
-        onClick={() => setCheatSheetOpen(true)}
-        className="fixed bottom-20 right-4 z-40 w-12 h-12 rounded-full bg-primary/90 hover:bg-primary text-primary-foreground shadow-lg flex items-center justify-center transition-all hover:scale-110"
-        title="Keyboard Shortcuts"
-      >
-        <HelpCircle className="w-6 h-6" />
-      </button>
+      {!isMobile && (
+        <button
+          onClick={() => setCheatSheetOpen(true)}
+          className="fixed bottom-20 right-4 z-40 w-12 h-12 rounded-full bg-primary/90 hover:bg-primary text-primary-foreground shadow-lg flex items-center justify-center transition-all hover:scale-110"
+          title="Keyboard Shortcuts"
+        >
+          <HelpCircle className="w-6 h-6" />
+        </button>
+      )}
 
       {openApps.map((appState, index) => {
         const config = appConfigs[appState.id];
@@ -270,7 +274,7 @@ const Index = () => {
             onClose={() => handleCloseApp(appState.id)}
             onMinimize={() => handleMinimizeApp(appState.id)}
             onFocus={() => handleFocusApp(appState.id)}
-            initialPosition={{ x: 100 + offset, y: 80 + offset }}
+            initialPosition={isMobile ? { x: 0, y: 48 } : { x: 100 + offset, y: 80 + offset }}
             width={config.width}
             height={config.height}
             zIndex={appState.zIndex}

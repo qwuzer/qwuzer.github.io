@@ -1,5 +1,6 @@
 import { Folder, User, Briefcase, Image, Music, Mail, Globe, Github, Linkedin } from "lucide-react";
 import { DockIcon } from "./DockIcon";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface DockProps {
   onAppClick: (appId: string) => void;
@@ -7,6 +8,8 @@ interface DockProps {
 }
 
 export const Dock = ({ onAppClick, openApps }: DockProps) => {
+  const isMobile = useIsMobile();
+  
   const apps = [
     { id: "finder", icon: Folder, label: "Finder", color: "text-blue-500" },
     { id: "about", icon: User, label: "About Me", color: "text-purple-500" },
@@ -21,6 +24,34 @@ export const Dock = ({ onAppClick, openApps }: DockProps) => {
     { id: "linkedin", icon: Linkedin, label: "LinkedIn", url: "https://www.linkedin.com/in/%E7%A5%90%E5%98%89-%E5%BC%B5-60690a399/", color: "text-blue-600" },
     // { id: "portfolio", icon: Globe, label: "Website", url: "https://example.com", color: "text-green-500" },
   ];
+
+  if (isMobile) {
+    return (
+      <div className="fixed bottom-0 left-0 right-0 z-50 safe-area-bottom">
+        <div className="dock-glass border-t border-border/50 px-2 py-2 flex items-center justify-around shadow-2xl">
+          {apps.map((app) => {
+            const Icon = app.icon;
+            const isActive = openApps.includes(app.id);
+            return (
+              <button
+                key={app.id}
+                onClick={() => onAppClick(app.id)}
+                className={`flex flex-col items-center justify-center gap-1 px-3 py-2 rounded-lg transition-all ${
+                  isActive ? "bg-primary/20" : ""
+                }`}
+              >
+                <Icon className={`w-5 h-5 ${app.color} ${isActive ? "scale-110" : ""}`} />
+                <span className="text-[10px] font-medium text-foreground/80">{app.label}</span>
+                {isActive && (
+                  <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-primary" />
+                )}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="fixed bottom-0 left-1/2 -translate-x-1/2 z-50 dock-container pb-4">
