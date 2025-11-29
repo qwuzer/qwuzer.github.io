@@ -13,28 +13,28 @@ type RepeatMode = "off" | "all" | "one";
 
 const playlist = [
   {
-    title: "Ocean Avenue",
-    artist: "Pufino",
+    title: "Fresh Focus",
+    artist: "Kevin MacLeod",
     duration: "3:30",
-    src: "https://cdn.pixabay.com/download/audio/2023/03/28/audio_53ebefb10b.mp3?filename=ocean-avenue-143173.mp3",
+    src: "https://freepd.com/music/Fresh%20Focus.mp3",
   },
   {
-    title: "Snow Outside",
-    artist: "SoulProdMusic",
+    title: "Natural Vibes",
+    artist: "Kevin MacLeod",
     duration: "2:54",
-    src: "https://cdn.pixabay.com/download/audio/2022/02/16/audio_6f4caa7a40.mp3?filename=snow-outside-159523.mp3",
+    src: "https://freepd.com/music/Natural%20Vibes.mp3",
   },
   {
-    title: "City Vibes",
-    artist: "Ashot-Danielyan-Composer",
+    title: "And Just Like That",
+    artist: "Bryan Teoh",
     duration: "3:48",
-    src: "https://cdn.pixabay.com/download/audio/2022/03/15/audio_0b5f6b2596.mp3?filename=city-vibes-11099.mp3",
+    src: "https://freepd.com/music/And%20Just%20Like%20That.mp3",
   },
   {
-    title: "Night Drive",
-    artist: "Coma-Media",
+    title: "Bar Brawl",
+    artist: "Bryan Teoh",
     duration: "4:02",
-    src: "https://cdn.pixabay.com/download/audio/2022/03/01/audio_9a5f765437.mp3?filename=night-drive-13877.mp3",
+    src: "https://freepd.com/music/Bar%20Brawl.mp3",
   },
 ];
 
@@ -115,7 +115,7 @@ export const MusicWindow = () => {
         })
         .catch(() => setIsPlaying(false));
     }
-  }, [currentTrack, isPlaying]);
+  }, [currentTrack]);
 
   useEffect(() => {
     const audio = audioRef.current;
