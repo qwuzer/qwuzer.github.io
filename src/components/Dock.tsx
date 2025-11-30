@@ -40,7 +40,11 @@ export const Dock = ({ onAppClick, openApps }: DockProps) => {
                   isActive ? "bg-primary/20" : ""
                 }`}
               >
-                <Icon className={`w-5 h-5 ${app.color} ${isActive ? "scale-110" : ""}`} />
+                {typeof Icon === "string" ? (
+                  <img src={Icon} alt={app.label} className={`w-8 h-8 rounded-lg object-cover ${isActive ? "scale-110" : ""}`} />
+                ) : (
+                  <Icon className={`w-5 h-5 ${app.color} ${isActive ? "scale-110" : ""}`} />
+                )}
                 <span className="text-[10px] font-medium text-foreground/80">{app.label}</span>
                 {isActive && (
                   <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-primary" />

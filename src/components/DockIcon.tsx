@@ -2,13 +2,13 @@ import { LucideIcon } from "lucide-react";
 import { useState } from "react";
 
 interface DockIconProps {
-  icon: LucideIcon;
+  icon: LucideIcon | string;
   label: string;
   color: string;
   onClick: () => void;
 }
 
-export const DockIcon = ({ icon: Icon, label, color, onClick }: DockIconProps) => {
+export const DockIcon = ({ icon: IconOrUrl, label, color, onClick }: DockIconProps) => {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
@@ -19,7 +19,11 @@ export const DockIcon = ({ icon: Icon, label, color, onClick }: DockIconProps) =
         onMouseLeave={() => setIsHovered(false)}
         onClick={onClick}
       >
-        <Icon className="w-8 h-8" />
+        {typeof IconOrUrl === "string" ? (
+          <img src={IconOrUrl} alt={label} className="w-full h-full object-cover rounded-xl" />
+        ) : (
+          <IconOrUrl className="w-8 h-8" />
+        )}
       </button>
       
       {isHovered && (

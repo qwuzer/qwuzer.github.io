@@ -23,6 +23,7 @@ import {
   HelpCircle,
 } from "lucide-react";
 import wallpaper from "@/assets/macos-wallpaper.jpg";
+import hachiwareImage from "@/assets/hachiware.jpg";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 type AppId =

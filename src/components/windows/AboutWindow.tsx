@@ -1,11 +1,16 @@
 import { MapPin, Mail, Phone, Calendar } from "lucide-react";
+import hachiwareImage from "@/assets/hachiware.jpg";
 
 export const AboutWindow = () => {
   return (
     <div className="p-8 max-w-3xl mx-auto">
       <div className="flex flex-col items-center gap-6 mb-8">
-        <div className="w-32 h-32 rounded-full bg-gradient-to-br from-primary to-purple-500 flex items-center justify-center text-white text-4xl font-bold">
-          YJ.C
+        <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-white shadow-lg">
+          <img 
+            src={hachiwareImage} 
+            alt="William Chang" 
+            className="w-full h-full object-cover"
+          />
         </div>
         <div className="text-center">
           <h2 className="text-3xl font-bold mb-2">William Chang</h2>
